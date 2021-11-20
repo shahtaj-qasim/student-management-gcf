@@ -12,6 +12,11 @@ public class HelloWorld implements HttpFunction {
     public void service(HttpRequest request, HttpResponse response)
             throws IOException {
         BufferedWriter writer = response.getWriter();
-        writer.write("Hello World!");
+        String msg = "Hello World";
+
+        //writer.write("Hello World!");
+    }
+    public String getMsg(){
+        return "Hello there!";
     }
 }
