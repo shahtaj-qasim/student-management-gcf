@@ -10,9 +10,11 @@ import com.google.cloud.functions.HttpResponse;
 import com.google.gson.*;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
+import com.google.gson.stream.JsonReader;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -46,8 +48,10 @@ public class CreateStudent implements HttpFunction {
         try {
             switch (contentType) {
                 case "application/json":
-                    JsonElement requestParsed = gson.fromJson(request.getReader(), JsonElement.class);
+                    JsonReader reader = new JsonReader(request.getReader());
+                    reader.setLenient(true);
                     JsonObject requestJson = null;
+                    JsonElement requestParsed = gson.fromJson(reader, JsonElement.class);
                     if (requestParsed != null && requestParsed.isJsonObject()) {
                         requestJson = requestParsed.getAsJsonObject();
                     }
@@ -81,7 +85,6 @@ public class CreateStudent implements HttpFunction {
     }
 
     private Map<String, Object> getTheDataInKeysAndValues(JsonObject requestJson){
-        JsonObject addressObj = requestJson.get("address").getAsJsonObject();
         //String streetName = addressObj.get("streetName").getAsString();
 
         // firestore db accepts maps with keys and values are posted in firestore
@@ -93,11 +96,7 @@ public class CreateStudent implements HttpFunction {
         student.put("email", requestJson.get("email").getAsString());
         student.put("semester", requestJson.get("semester").getAsInt());
         student.put("degree", requestJson.get("degree").getAsString());
-        student.put("address.streetName",addressObj.get("streetName").getAsString());
-        student.put("address.houseNumber",addressObj.get("houseNumber").getAsInt());
-        student.put("address.zipCode",addressObj.get("zipCode").getAsInt());
-        student.put("address.city",addressObj.get("city").getAsString());
-        student.put("address.country",addressObj.get("country").getAsString());
+        student.put("address",requestJson.get("address").getAsString());
         System.out.println("what is this student information: "+ student);
         return student;
     }
