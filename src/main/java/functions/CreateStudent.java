@@ -1,6 +1,6 @@
 package functions;
 
-import Models.Student;
+import models.Student;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
@@ -16,8 +16,6 @@ import com.google.gson.stream.JsonReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 public class CreateStudent implements HttpFunction {

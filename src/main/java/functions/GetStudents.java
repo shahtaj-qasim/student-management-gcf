@@ -1,6 +1,5 @@
 package functions;
 
-import Models.Student;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
@@ -50,16 +48,10 @@ public class GetStudents implements HttpFunction {
                 }
             }
             else {
-                CollectionReference students = db.collection("students");
-                writer.printf("%s AAAAAAA \n", studentNumber);
-                ApiFuture<QuerySnapshot> query = students.whereEqualTo("studentNumber", studentNumber).get();
-                List<QueryDocumentSnapshot> documents = query.get().getDocuments();
-                for (QueryDocumentSnapshot document : documents) {
-                    writer.printf("%s => %s \n", document.getId(), document.getData());
-                }
+                ApiFuture<DocumentSnapshot> students = db.collection("students").document(studentNumber).get();
+                writer.printf("STUDENT: %s\n", students.get().getData());
             }
             // if get request has no parameters then get all students (implemented above), and in other case get specific students
-            writer.printf("%s\n", studentNumber);
             response.setStatusCode(HttpURLConnection.HTTP_OK);
         } catch (JsonParseException e) {
             logger.severe("Error parsing JSON: " + e.getMessage());
