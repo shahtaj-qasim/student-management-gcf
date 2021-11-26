@@ -6,6 +6,7 @@ group 'org.example'
 version '1.0-SNAPSHOT'
 
 repositories {
+    google()
     mavenCentral()
 }
 configurations {
@@ -29,7 +30,6 @@ dependencies {
     compile 'com.google.cloud:google-cloud-firestore:1.32.0'
 
 }
-
 
 // Register a "runFunction" task to run the function locally
 tasks.register("runFunction", JavaExec) {

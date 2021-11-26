@@ -1,5 +1,6 @@
 package functions;
 
+import Models.Student;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
@@ -14,7 +15,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringReader;
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -65,8 +66,12 @@ public class CreateStudent implements HttpFunction {
                         logger.severe("Student Number not found. It is mandatory field. " );
                         break;
                     }
-                    Map<String, Object> data = getTheDataInKeysAndValues(requestJson);
-                    postDataToDatabase(db, data, studentNumber);
+                    Student student= new Student(requestJson.get("firstName").getAsString(), requestJson.get("lastName").getAsString(),
+                            requestJson.get("studentNumber").getAsInt(), requestJson.get("dob").getAsString(), requestJson.get("email").getAsString(),
+                            requestJson.get("semester").getAsInt(), requestJson.get("degree").getAsString(), requestJson.get("address").getAsString());
+
+                    postDataToDatabase(db, student, studentNumber);
+                    response.setStatusCode(HttpURLConnection.HTTP_OK);
                     break;
                 default:
                     logger.severe("Request Content-Type is not JSON " );
@@ -84,27 +89,10 @@ public class CreateStudent implements HttpFunction {
 
     }
 
-    private Map<String, Object> getTheDataInKeysAndValues(JsonObject requestJson){
-        //String streetName = addressObj.get("streetName").getAsString();
-
-        // firestore db accepts maps with keys and values are posted in firestore
-        Map<String, Object> student = new HashMap<>();
-        student.put("firstName", requestJson.get("firstName").getAsString());
-        student.put("lastName", requestJson.get("lastName").getAsString());
-        student.put("studentNumber", requestJson.get("studentNumber").getAsInt());
-        student.put("dob", requestJson.get("dob").getAsString());
-        student.put("email", requestJson.get("email").getAsString());
-        student.put("semester", requestJson.get("semester").getAsInt());
-        student.put("degree", requestJson.get("degree").getAsString());
-        student.put("address",requestJson.get("address").getAsString());
-        System.out.println("what is this student information: "+ student);
-        return student;
-    }
-
-    private void postDataToDatabase(Firestore db, Map<String, Object> data, int studentNumber) throws ExecutionException, InterruptedException {
+    private void postDataToDatabase(Firestore db, Student student, int studentNumber) throws ExecutionException, InterruptedException {
         DocumentReference docRef = db.collection("students").document(String.valueOf(studentNumber));
         //asynchronously write data
-        ApiFuture<WriteResult> result = docRef.set(data);
+        ApiFuture<WriteResult> result = docRef.set(student);
 
         // result.get() blocks on response
         System.out.println("Update time : " + result.get().getUpdateTime());
