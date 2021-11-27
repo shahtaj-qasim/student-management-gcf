@@ -18,10 +18,7 @@ import java.util.logging.Logger;
 
 public class GetStudents implements HttpFunction {
 
-    private static final Logger logger = Logger.getLogger(CreateStudent.class.getName());
-
-    private static final Gson gson = new Gson();
-
+    private static final Logger logger = Logger.getLogger(GetStudents.class.getName());
 
     @Override
     public void service(HttpRequest request, HttpResponse response)
@@ -48,10 +45,10 @@ public class GetStudents implements HttpFunction {
                 }
             }
             else {
+                // if get request has no parameters then get all students (implemented above), and in other case get specific students
                 ApiFuture<DocumentSnapshot> students = db.collection("students").document(studentNumber).get();
                 writer.printf("STUDENT: %s\n", students.get().getData());
             }
-            // if get request has no parameters then get all students (implemented above), and in other case get specific students
             response.setStatusCode(HttpURLConnection.HTTP_OK);
         } catch (JsonParseException e) {
             logger.severe("Error parsing JSON: " + e.getMessage());
