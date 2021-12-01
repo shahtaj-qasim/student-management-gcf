@@ -8,6 +8,8 @@
     gradlew runFunction -Prun.functionTarget=functions.GetStudents
     
     gradlew runFunction -Prun.functionTarget=functions.UpdateStudent
+    
+    gradlew runFunction -Prun.functionTarget=functions.DeleteStudent
 
 ***POST curl request:***
 
@@ -23,3 +25,11 @@
     curl -X PUT http://localhost:8080/?studentNumber=2004849 -H "Content-Type:application/json" -d {"firstName":"Test"}
     
     curl -X PUT http://localhost:8080/?studentNumber=2004849 -H "Content-Type:application/json" -d {"firstName":"Abc","semester":"3"}
+
+***DELETE curl request:***
+
+    curl -X DEL http://localhost:8080/?studentNumber=2099088
+    
+**Local execution of all curl requests (get, post, put, del) using main function:**
+
+    gradlew runFunction -Prun.functionTarget=functions.MainFunction
