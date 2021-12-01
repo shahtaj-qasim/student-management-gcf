@@ -16,8 +16,10 @@
 ***GET curl request:***
 
     curl -X GET http://localhost:8080 -H "Accept: application/json" (Without parameters will get all students)
-
+    
+    curl -X GET http://localhost:8080/?studentNumber=2014848 -H "Accept: application/json" (Get student by student number)
 ***PUT curl request:***
 
     curl -X PUT http://localhost:8080/?studentNumber=2004849 -H "Content-Type:application/json" -d {"firstName":"Test"}
+    
     curl -X PUT http://localhost:8080/?studentNumber=2004849 -H "Content-Type:application/json" -d {"firstName":"Abc","semester":"3"}

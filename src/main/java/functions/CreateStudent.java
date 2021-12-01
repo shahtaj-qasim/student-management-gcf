@@ -1,8 +1,8 @@
 package functions;
 
+import config.FirestoreConfiguration;
 import models.Student;
 import com.google.api.core.ApiFuture;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.WriteResult;
 import com.google.cloud.functions.HttpFunction;
@@ -10,7 +10,6 @@ import com.google.cloud.functions.HttpRequest;
 import com.google.cloud.functions.HttpResponse;
 import com.google.gson.*;
 import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.FirestoreOptions;
 import com.google.gson.stream.JsonReader;
 
 import java.io.IOException;
@@ -36,19 +35,14 @@ public class CreateStudent implements HttpFunction {
         var writer = new PrintWriter(response.getWriter());
 
         //firestore instance
-        FirestoreOptions firestoreOptions =
-                FirestoreOptions.getDefaultInstance().toBuilder()
-                        .setProjectId("dsg-thesis")
-                        .setCredentials(GoogleCredentials.getApplicationDefault())
-                        .build();
-        Firestore db = firestoreOptions.getService();
+        FirestoreConfiguration fs= new FirestoreConfiguration();
+        Firestore db = fs.getFireStoreService();
 
         // Parse JSON request and get the data
         try {
             switch (contentType) {
                 case "application/json":
                     JsonReader reader = new JsonReader(request.getReader());
-                    reader.setLenient(true);
                     JsonObject requestJson = null;
                     JsonElement requestParsed = gson.fromJson(reader, JsonElement.class);
                     if (requestParsed != null && requestParsed.isJsonObject()) {

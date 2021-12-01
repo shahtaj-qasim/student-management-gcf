@@ -1,13 +1,12 @@
 package functions;
 
 import com.google.api.core.ApiFuture;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
 import com.google.cloud.functions.HttpFunction;
 import com.google.cloud.functions.HttpRequest;
 import com.google.cloud.functions.HttpResponse;
-import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import config.FirestoreConfiguration;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,12 +26,8 @@ public class GetStudents implements HttpFunction {
         var writer = new PrintWriter(response.getWriter());
 
         //firestore instance
-        FirestoreOptions firestoreOptions =
-                FirestoreOptions.getDefaultInstance().toBuilder()
-                        .setProjectId("dsg-thesis")
-                        .setCredentials(GoogleCredentials.getApplicationDefault())
-                        .build();
-        Firestore db = firestoreOptions.getService();
+        FirestoreConfiguration fs= new FirestoreConfiguration();
+        Firestore db = fs.getFireStoreService();
         String studentNumber= request.getFirstQueryParameter("studentNumber").orElse(null);
 
         try {
