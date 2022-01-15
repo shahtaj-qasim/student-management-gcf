@@ -25,9 +25,9 @@ public class DeleteStudent implements HttpFunction {
         String studentNumber= request.getFirstQueryParameter("studentNumber").orElse(null);
 
         try {
-            //get all students
-            if (studentNumber == null) {
+            if (studentNumber == null || studentNumber.equals("")) {
                 logger.severe("Student number is not provided");
+                response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
             } else {
                 // asynchronously delete a document
                 ApiFuture<WriteResult> writeResult = db.collection("students").document(studentNumber).delete();
@@ -37,6 +37,7 @@ public class DeleteStudent implements HttpFunction {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.setStatusCode(HttpURLConnection.HTTP_BAD_REQUEST);
         }
     }
 }

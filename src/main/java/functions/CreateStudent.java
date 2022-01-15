@@ -56,6 +56,7 @@ public class CreateStudent implements HttpFunction {
 
                     if(studentNumber ==0){
                         logger.severe("Student Number not found. It is mandatory field. " );
+                        response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
                         break;
                     }
                     Student student= new Student(requestJson.get("firstName").getAsString(), requestJson.get("lastName").getAsString(),
@@ -67,9 +68,11 @@ public class CreateStudent implements HttpFunction {
                     break;
                 default:
                     logger.severe("Request Content-Type is not JSON " );
+                    response.setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
             }
         } catch (JsonParseException e) {
             logger.severe("Error parsing JSON: " + e.getMessage());
+            response.setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -77,7 +80,7 @@ public class CreateStudent implements HttpFunction {
         }
 
 
-        writer.printf("Hello %s!", name);
+        writer.printf("Student %s is added into the database", name);
 
     }
 

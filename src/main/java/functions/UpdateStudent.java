@@ -36,8 +36,9 @@ public class UpdateStudent implements HttpFunction {
         try {
             switch (contentType) {
                 case "application/json":
-                    if (studentNumber == null) {
-                        logger.severe("Student number is not provided");
+                    if (studentNumber == null || studentNumber.equals("")) {
+                        logger.severe("Student number is not provided. It is a required field.");
+                        response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
                     } else {
                         //student number changing is not allowed
                         JsonObject body = gson.fromJson(request.getReader(), JsonObject.class);
@@ -76,9 +77,11 @@ public class UpdateStudent implements HttpFunction {
                     break;
                 default:
                     logger.severe("Request Content-Type is not JSON ");
+                    response.setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
             }
         } catch (JsonParseException e) {
             logger.severe("Error parsing JSON: " + e.getMessage());
+            response.setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
