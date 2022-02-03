@@ -1,6 +1,9 @@
 **Google Cloud Functions Student Management Application**
 
-
+**Command for logging in**
+    
+    gcloud auth login
+    
 **For local testing set up using Functions Framework and Gradle:**
 
     gradlew runFunction -Prun.functionTarget=functions.CreateStudent
@@ -30,6 +33,15 @@
 
     curl -X DEL http://localhost:8080/?studentNumber=2099088
     
-**Local execution of all curl requests (get, post, put, del) using main function:**
+**Unit tests execution**
 
-    gradlew runFunction -Prun.functionTarget=functions.MainFunction
+_Execute all test cases_
+    
+    gradlew tests
+
+_Execute single test cases_
+
+    gradlew test --tests functions.unittests.GetStudentsTest.getAStudent_Test
+    gradlew test --tests functions.unittests.UpdateStudentTest.updateStudent_Test
+    gradlew test --tests functions.unittests.CreateStudentTest.createStudent_Test
+    gradlew test --tests functions.unittests.DeleteStudentTest.deleteStudent_Test
