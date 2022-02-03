@@ -1,5 +1,16 @@
 **Google Cloud Functions Student Management Application**
 
+**Technologies**
+1. Java 11
+2. Gradle
+3. IntelliJ IDEA
+4. gcloud command line tool
+5. Google Cloud Functions
+6. Cloud Firestore
+7. Cloud Logging
+8. Functions Framework
+9. Mockito
+
 **Command for logging in**
     
     gcloud auth login
