@@ -42,7 +42,12 @@ public class GetStudents implements HttpFunction {
             else {
                 // if get request has no parameters then get all students (implemented above), and in other case get specific students
                 ApiFuture<DocumentSnapshot> students = db.collection("students").document(studentNumber).get();
-                writer.printf("STUDENT: %s\n", students.get().getData());
+                if(students.get().getData() !=null) {
+                    writer.printf("STUDENT: %s\n", students.get().getData());
+                }
+                else{
+                    writer.printf("Student with student number %s not found",studentNumber);
+                }
             }
             response.setStatusCode(HttpURLConnection.HTTP_OK);
         } catch (JsonParseException e) {

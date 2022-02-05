@@ -1,4 +1,4 @@
-**Google Cloud Functions Student Management Application**
+**Student Management System using Google Cloud Functions**
 
 **Technologies**
 1. Java 11

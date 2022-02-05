@@ -46,7 +46,7 @@ public class GetStudentsTest {
     }
 
     @Test
-    public void getAStudent_Test() throws IOException {
+    public void getStudent_Test() throws IOException {
         when(request.getFirstQueryParameter("studentNumber")).thenReturn(Optional.of("2004000"));
 
         new GetStudents().service(request, response);

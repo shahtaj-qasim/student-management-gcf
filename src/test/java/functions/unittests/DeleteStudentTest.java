@@ -41,7 +41,6 @@ public class DeleteStudentTest {
 
     @Test
     public void deleteStudent_Test() throws Exception {
-        //when(request.getContentType()).thenReturn(Optional.of("application/json"));
         when(request.getFirstQueryParameter("studentNumber")).thenReturn(Optional.of("2004000"));
         BufferedReader jsonReader = new BufferedReader(new StringReader(""));
 
