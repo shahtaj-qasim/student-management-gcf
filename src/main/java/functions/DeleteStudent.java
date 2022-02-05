@@ -26,7 +26,8 @@ public class DeleteStudent implements HttpFunction {
 
         try {
             if (studentNumber == null || studentNumber.equals("")) {
-                logger.severe("Student number is not provided");
+                writer.printf("Student number is not provided. It is a required field.");
+                logger.severe("Student number is not provided. It is a required field.");
                 response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
             } else {
                 // asynchronously delete a document

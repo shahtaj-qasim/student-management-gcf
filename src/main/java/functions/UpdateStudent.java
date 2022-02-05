@@ -37,6 +37,7 @@ public class UpdateStudent implements HttpFunction {
             switch (contentType) {
                 case "application/json":
                     if (studentNumber == null || studentNumber.equals("")) {
+                        writer.printf("Student number is not provided. It is a required field.");
                         logger.severe("Student number is not provided. It is a required field.");
                         response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
                     } else {

@@ -22,7 +22,6 @@ public class CreateStudent implements HttpFunction {
 
     private static final Gson gson = new Gson();
 
-
     @Override
     public void service(HttpRequest request, HttpResponse response)
             throws IOException {
@@ -55,6 +54,7 @@ public class CreateStudent implements HttpFunction {
                     }
 
                     if(studentNumber ==0){
+                        writer.printf("Student number is not provided. It is a required field.");
                         logger.severe("Student Number not found. It is mandatory field. " );
                         response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
                         break;

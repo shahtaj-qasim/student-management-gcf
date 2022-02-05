@@ -23,6 +23,8 @@ public class CreateStudentTest {
     // TODO<developer>: set this value, as an environment variable or within your test code
     private static final String BASE_URL = "https://us-central1-dsg-thesis.cloudfunctions.net";
 
+    Gson gson = new Gson();
+
     // Identity token used to send requests to authenticated-only functions
     // TODO<developer>: Set this value if your function requires authentication.
     //                  See the documentation for more info:
@@ -39,8 +41,6 @@ public class CreateStudentTest {
     public void createStudent_Test() throws IOException, InterruptedException {
         String functionUrl = BASE_URL + "/" + FUNCTION_DEPLOYED_NAME;
 
-
-        Gson gson = new Gson();
         String jsonRequest = gson.toJson(Map.of("lastName", "Unit",
                 "firstName", "Testing",
                 "studentNumber", "2004000",

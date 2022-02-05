@@ -35,14 +35,14 @@ public class UpdateStudentTest {
 
     private static final String PARAMETER = "studentNumber=2004000";
 
+    Gson gson = new Gson();
+
     private static HttpClient client = HttpClient.newHttpClient();
 
     @Test
     public void updateStudent_Test() throws IOException, InterruptedException {
         String functionUrl = BASE_URL + "/" + FUNCTION_DEPLOYED_NAME+"/?"+PARAMETER;
 
-
-        Gson gson = new Gson();
         String jsonRequest = gson.toJson(Map.of("lastName", "TestUnit"));
 
         HttpRequest.Builder getRequestBuilder = java.net.http.HttpRequest.newBuilder()
