@@ -64,10 +64,12 @@ public class CreateStudent implements HttpFunction {
                             requestJson.get("semester").getAsInt(), requestJson.get("degree").getAsString(), requestJson.get("address").getAsString());
 
                     postDataToDatabase(db, student, studentNumber);
+                    writer.printf("Student %s is added into the database", name);
                     response.setStatusCode(HttpURLConnection.HTTP_OK);
                     break;
                 default:
-                    logger.severe("Request Content-Type is not JSON " );
+                    writer.printf("Request Content-Type is not JSON" );
+                    logger.severe("Request Content-Type is not JSON" );
                     response.setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
             }
         } catch (JsonParseException e) {
@@ -78,9 +80,6 @@ public class CreateStudent implements HttpFunction {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-
-        writer.printf("Student %s is added into the database", name);
 
     }
 

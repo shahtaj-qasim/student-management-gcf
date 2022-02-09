@@ -77,7 +77,8 @@ public class UpdateStudent implements HttpFunction {
                     }
                     break;
                 default:
-                    logger.severe("Request Content-Type is not JSON ");
+                    writer.printf("Request Content-Type is not JSON");
+                    logger.severe("Request Content-Type is not JSON");
                     response.setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
             }
         } catch (JsonParseException e) {
