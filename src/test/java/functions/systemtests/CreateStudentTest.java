@@ -21,7 +21,7 @@ import org.junit.runners.JUnit4;
 public class CreateStudentTest {
     // Root URL pointing to your Cloud Functions deployment
     // TODO<developer>: set this value, as an environment variable or within your test code
-    private static final String BASE_URL = "https://us-central1-dsg-thesis.cloudfunctions.net";
+    private static final String BASE_URL = "https://us-central1-dsg-thesis-test.cloudfunctions.net";
 
     Gson gson = new Gson();
 

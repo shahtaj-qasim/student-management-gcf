@@ -16,7 +16,7 @@ import org.junit.runners.JUnit4;
 public class GetStudentsTest {
     // Root URL pointing to your Cloud Functions deployment
     // TODO<developer>: set this value, as an environment variable or within your test code
-    private static final String BASE_URL = "https://us-central1-dsg-thesis.cloudfunctions.net";
+    private static final String BASE_URL = "https://us-central1-dsg-thesis-test.cloudfunctions.net";
 
     // Identity token used to send requests to authenticated-only functions
     // TODO<developer>: Set this value if your function requires authentication.
@@ -28,7 +28,7 @@ public class GetStudentsTest {
     // TODO<developer>: Set this to HelloHttp, as an environment variable or within your test code
     private static final String FUNCTION_DEPLOYED_NAME = "GetStudents";
 
-    private static final String PARAMETER = "studentNumber=2004886";
+    private static final String PARAMETER = "studentNumber=2004000";
 
     private static HttpClient client = HttpClient.newHttpClient();
 
@@ -52,6 +52,6 @@ public class GetStudentsTest {
         String responseStr= response.body().toString().substring(10,42); //get firstname and lastname
 
         assertThat(response.statusCode()).isEqualTo(HttpURLConnection.HTTP_OK);
-        assertThat(responseStr).isEqualTo("firstName=Test, lastName=Student");
+        assertThat(responseStr).isEqualTo("lastName=Unit, firstName=Testing");
     }
 }

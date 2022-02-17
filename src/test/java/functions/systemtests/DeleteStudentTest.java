@@ -21,7 +21,7 @@ import org.junit.runners.JUnit4;
 public class DeleteStudentTest {
     // Root URL pointing to your Cloud Functions deployment
     // TODO<developer>: set this value, as an environment variable or within your test code
-    private static final String BASE_URL = "https://us-central1-dsg-thesis.cloudfunctions.net";
+    private static final String BASE_URL = "https://us-central1-dsg-thesis-test.cloudfunctions.net";
 
     // Identity token used to send requests to authenticated-only functions
     // TODO<developer>: Set this value if your function requires authentication.
@@ -54,7 +54,8 @@ public class DeleteStudentTest {
 
         HttpResponse response = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
 
-        assertThat(response.statusCode()).isEqualTo(HttpURLConnection.HTTP_OK);
         assertThat(response.body().toString()).isEqualTo("STUDENT DELETED");
+        assertThat(response.statusCode()).isEqualTo(HttpURLConnection.HTTP_OK);
+
     }
 }
