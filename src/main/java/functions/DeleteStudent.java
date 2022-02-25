@@ -37,6 +37,7 @@ public class DeleteStudent implements HttpFunction {
                 response.setStatusCode(HttpURLConnection.HTTP_OK);
             }
         } catch (Exception e) {
+            logger.severe("ERROR: " + e);
             e.printStackTrace();
             response.setStatusCode(HttpURLConnection.HTTP_BAD_REQUEST);
         }

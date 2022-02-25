@@ -42,7 +42,7 @@ public class GetStudentsTest {
 
         // Emulate the function locally by running the Functions Framework Maven plugin
         emulatorProcess = new ProcessBuilder()
-                .command("H:\\Masters-Bamberg\\Semester5\\student-mgt-dsg-thesis\\gradlew.bat", "task:runFunction")
+                .command("gradlew", "function:run")
                 .directory(new File(baseDir))
                 .start();
     }

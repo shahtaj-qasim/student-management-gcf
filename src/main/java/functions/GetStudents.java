@@ -51,10 +51,14 @@ public class GetStudents implements HttpFunction {
             }
             response.setStatusCode(HttpURLConnection.HTTP_OK);
         } catch (JsonParseException e) {
-            logger.severe("Error parsing JSON: " + e.getMessage());
+            logger.severe("Error parsing JSON: " + e);
+            writer.printf("Error parsing JSON: " + e.getMessage());
+            response.setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
         } catch (InterruptedException e) {
+            logger.severe("ERROR: " + e);
             e.printStackTrace();
         } catch (ExecutionException e) {
+            logger.severe("ERROR: " + e);
             e.printStackTrace();
         }
     }
